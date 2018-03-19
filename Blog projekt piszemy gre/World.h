@@ -18,7 +18,6 @@ public:
 	World();    //konstruktor
 	~World();  //destruktor
 
-
 	//gettery - czyli metody pobieraj¹ce prywatne dane z obiektu
 
 	std::string get_infoCell();

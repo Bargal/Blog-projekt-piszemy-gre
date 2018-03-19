@@ -1,45 +1,45 @@
-
-
-
-
 #include <ctime>
 #include "World.h"
 #include "Player.h"
 
 int main()
 {
-	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy, poniewa¿ bêdziemy w grze go wykorzystywaæ. u¿ywam static_cast, ¿eby pozbyæ siê irytuj¹cych ostrzê¿eñ :) 
+	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy, poniewaz bedziemy w grze go wykorzystywac. uzywam static_cast, zeby pozbyc sie irytujacych ostrzezen :)
 
-	int endGame = 0;  //je¿eli zmienna bêdzie ró¿na od 0 na koñcu pentli nast¹pi zamkniêcie gry i wyjœcie do systemu.
+	int endGame = 0;  //jezeli zmienna bedzie rozna od 0 na koncu pentli nastapi zamkniecie gry i wyjscie do systemu.
 
-	do //pomocnicza pêtla gry (jednoczeœnie bêd¹ca cyklem ¿ycia obiektów)
+	do //pomocnicza petla gry (jednoczesnie bedaca cyklem zycia obiektow)
 	{
+		/*
+		 *na razie ustalamy stala wielkosc swiata dla ulatwienia.
+		 *ale to tutaj jest miejsce na menu z wyborem wielkosci swiata
+		 */
 		int worldSizeX = 10; //wielkosc swiata - wspolrzedna X
 		int worldSizeY = 10; //wielkosc swiata - wspolrzedna Y
 
-		auto **p_p_worldArr = new World*[worldSizeX];   //tworzymy wskaŸnik do 1 wymiarowej tablicy i od razu tablicê z wska¿nikami do tablic zawieraj¹cych obiekty klasy World.
-		for (int i = 0; i < worldSizeX; i++)           //pêtla dziêki której stworzymy:
-			p_p_worldArr[i] = new World[worldSizeY];  //w ka¿dej komórce tablicy tworzymy wskaŸnik do nowej tablicy i od razu now¹ tablicê obiektów klasy World.
+		auto **p_p_worldArr = new World*[worldSizeX];   //tworzymy wskaznik do 1 wymiarowej tablicy i od razu tablice z wskaznikami do tablic zawieraj¹cych obiekty klasy World.
+		for (int i = 0; i < worldSizeX; i++)           //petla dzieki ktorej stworzymy:
+			p_p_worldArr[i] = new World[worldSizeY];  //w kazdej komorce tablicy tworzymy wskaznik do nowej tablicy i od razu nowa tablice obiektow klasy World.
 
-		auto p_player = new Player(worldSizeX, worldSizeY);               //Inicjujemy obiekt przechowuj¹cy dane gracza i od razu przekazujemy do niego rozmiar œwiata
-
+		auto p_player = new Player(worldSizeX, worldSizeY);               //Inicjujemy obiekt przechowujacy dane gracza i od razu przekazujemy do niego rozmiar swiata
+		if (!p_player->playerError)  return 1;                           //jesli nie udalo sie poprawnie zainicjowac obiektu wychodzimy z gry, zwracajac kod bledu.
+																		//pamietajmy - p_player to wskaznik do obiektu, wiec metody i zmienne wywolujemy nie przez '.' tylko '->'
 		/*
 		 *
 		 *
-		 *tu bêdzie program ;)
+		 *tu bedzie program ;)
 		 *
 		 *
 		 */
 
-		 //kasujemy obiekt przechowuj¹cy dane gracza
+		 //kasujemy obiekt przechowujacy dane gracza
 		delete p_player;
 
-		//kasujemy wszystkie dane œwiata, robimy to odwrotnie ni¿ podczas inicjalizacji:
+		//kasujemy wszystkie dane swiata, robimy to odwrotnie ni¿ podczas inicjalizacji:
 		for (int i = 0; i < worldSizeX; i++)
-			delete[] p_p_worldArr[i];  //najpierw wska¿niki do tablic
-		delete[] p_p_worldArr;        //a nastêpnie wska¿nik do tablicy wska¿ników
-
-	} while (endGame == 0);  //warunek koñcowy pomocniczej pêtli gry
+			delete[] p_p_worldArr[i];  //najpierw wskazniki do tablic
+		delete[] p_p_worldArr;        //a nastêpnie wskaznik do tablicy wskaznikow
+	} while (endGame == 0);  //warunek koncowy pomocniczej petli gry
 
 	return 0;
 }

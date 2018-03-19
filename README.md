@@ -1,6 +1,6 @@
  Projekt gry tworzonej specjalnie na potrzeby bloga
- Programowanie z kotem na kolanach
- kotnakolana.blogspot.com
+ Devhobby - Programowanie z kotem na kolanach
+ https://devhobby.eu
  Kod pisany w Visual Studio 2017
  Przez Bartosz Gala
 
