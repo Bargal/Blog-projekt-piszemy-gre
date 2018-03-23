@@ -5,26 +5,28 @@
 //inicjujemy playerError od razu jako blad krytyczny - poniewa¿ jest to sta³a "static bool" to tu jest na to ostatnie miejsce.
 //przy okazji inicjujemy reszte zmiennych.
 Player::Player() : endGame(0), playerMove(0), playerTime(0), playerHp(0), playerRounds(0), hardMode(false),
-                   playerError(true)
+playerError(true)
 {
 	std::cout << "Blad inicjacji obiektu: nie podano rozmiaru obszaru gry" << std::endl;
 }
 
 //konstruktor: dane wejsciowe ustawiay jako const, zeby nic nam przypadkiem ich nie zmienilo!
 Player::Player(const int sizeX, const int sizeY) : endGame(0), playerMove(0), playerTime(0), playerHp(0),
-                                                   playerRounds(0), hardMode(false), playerError(false)
+playerRounds(0), hardMode(false), playerError(false)
 
 {
 	//tworzymy zmienne dla generatora w celu wylosowania malych liczb, ktore umieszc¹ start mniej wiecej po przeciwnej stronie swiata.
 	const int rndX = (sizeX / 3);
 	const int rndY = (sizeY / 3);
 
-	positionArray[0] = (std::rand() % rndX); //Losujemy pozycje startowa
-	positionArray[1] = (std::rand() % rndY); //Losujemy pozycje startowa
+	positionArray[0] = (std::rand() % rndX);              //Losujemy pozycje startowa
+	positionArray[1] = (std::rand() % rndY);              //Losujemy pozycje startowa
 	positionArray[2] = (std::rand() % rndX) + (rndX * 2); //Losujemy pozycje koñcowa
 	positionArray[3] = (std::rand() % rndY) + (rndY * 2); //Losujemy pozycje koñcowa
-	positionArray[4] = positionArray[0]; //ustawiamy gracza na pozycji startowej
-	positionArray[5] = positionArray[1]; //ustawiamy gracza na pozycji startowej
+	positionArray[4] = positionArray[0];                  //ustawiamy gracza na pozycji startowej
+	positionArray[5] = positionArray[1];                  //ustawiamy gracza na pozycji startowej
+	positionArray[4] = sizeX;                             //wpisujemy do tablicy wielkosc swiata
+	positionArray[5] = sizeY;                             //wpisujemy do tablicy wielkosc swiata
 }
 
 void Player::hpTimeInit()
@@ -43,6 +45,8 @@ int Player::get_endX() { return positionArray[2]; }
 int Player::get_endY() { return positionArray[3]; }
 int Player::get_actX() { return positionArray[4]; }
 int Player::get_actY() { return positionArray[5]; }
+int Player::get_sizeX() { return positionArray[6]; }
+int Player::get_sizeY() { return positionArray[7]; }
 int Player::get_playerTime() { return playerTime; }
 int Player::get_playerHp() { return playerHp; }
 int Player::get_playerRounds() { return playerRounds; }

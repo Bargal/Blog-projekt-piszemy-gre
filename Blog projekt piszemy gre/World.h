@@ -30,7 +30,7 @@ public:
 	//settery - czyli metody zmieniaj¹ce prywatne dane w obiekcie
 
 	void set_beInside(int);
-	void set_exitCell(int, bool);
-	void set_eventType(int);
-	void set_infoCell(std::string, int);
+	void set_exitCell(int, bool);                                     //ustawiamy stan logiczny (true/false) w okreslonego pola tabeli
+	void set_eventType(int);                                         //
+	void set_infoCell(int data2 = 0, std::string data1 = "Pokoj");  //ustawiamy domyslne parametry funkcji. Zak³adam, ¿e pierwszy cz³on bêdzie siê zmienia³ du¿o czêœciej ni¿ drugi.
 };
