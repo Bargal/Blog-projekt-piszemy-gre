@@ -8,7 +8,7 @@
 class World
 {
 	int beInside;               // ilosc odwiedzin w pokoju
-	bool exitCell[4]{ true };  //wyjscia z pokoju:  | 0-Pó³noc | 1-wschód | 2-po³udnie  | 3-zachód || (w-d-s-a) * true = otwarte *
+	bool exitCell[4]{ true, true, true, true };  //wyjscia z pokoju:  | 0-Pó³noc | 1-wschód | 2-po³udnie  | 3-zachód || (w-d-s-a) * true = otwarte *
 	int eventType;            //rodzaj wydarzenia lub jego brak.
 	int hpCell;				 //wartoœæ o jak¹ zmienia siê zdrowie gracza na tym polu
 	int timeCell;           //wartoœæ o jak¹ zmienia siê czas pozosta³y do koñca rozgrywki

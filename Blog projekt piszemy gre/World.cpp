@@ -8,7 +8,7 @@ World::World() : beInside(0), eventType(0), hpCell(0), timeCell(0)
 
 World::~World() = default;
 
-std::string World::get_infoCell() { return std::string(); }
+std::string World::get_infoCell() { return infoCell; }
 int World::get_hpCell() { return hpCell; }
 int World::get_timeCell() { return timeCell; }
 int World::get_beInside() { return beInside; }

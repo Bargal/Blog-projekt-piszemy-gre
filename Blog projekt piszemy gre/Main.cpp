@@ -10,13 +10,13 @@ int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy, poniewaz bedziemy w grze go wykorzystywac. uzywam static_cast, zeby pozbyc sie irytujacych ostrzezen :)
 
-	// ********* moze nie dzioalac na innych IDE niz Visual Studio!***********												
+	// ********* moze nie dzioalac na innych IDE niz Visual Studio!***********
 	HWND console = GetConsoleWindow();                  //zmiana wielkosci okna konsoli   copy-paste - wazne, ze dziala, nie wazne jak ;)  (windows.h lib);)
 	RECT r;
-	GetWindowRect(console, &r);                       
+	GetWindowRect(console, &r);
 	MoveWindow(console, r.left, r.top, 900, 600, TRUE); // tu ustawiamy wysokosc i szerokosc okna konsoli ... koniec copy-paste.
 
-	int endGame = 0;  //jezeli zmienna bedzie rozna od 0 na koncu pentli nastapi zamkniecie gry i wyjscie do systemu.
+	int endGame;  //jezeli zmienna bedzie rozna od 0 na koncu pentli nastapi zamkniecie gry i wyjscie do systemu.
 
 	do //pomocnicza petla gry (jednoczesnie bedaca cyklem zycia obiektow)
 	{
@@ -37,7 +37,7 @@ int main()
 																	   //pamietajmy - p_player to wskaznik do obiektu, wiec metody i zmienne wywolujemy nie przez '.' tylko '->'
 
 		endGame = startGame(p_player, p_p_worldArr);                  //tu bêdzie toczyæ siê ca³a nasza gra, przechodzimy do plikow game.h i game.cpp   ** i jak wskazuje logika - koniec gry jest spowodowany jej rozpoczêciem ;) *
-		//prototyp funkcji pliku game.h
+		//prototyp funkcji w pliku game.h
 
 		 //kasujemy obiekt przechowujacy dane gracza
 		delete p_player;

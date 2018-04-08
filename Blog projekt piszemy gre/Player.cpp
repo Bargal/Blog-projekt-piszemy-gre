@@ -1,17 +1,19 @@
 #include "Player.h"
+#include "ScoreBoard.h"
 #include <cstdlib>
 #include <iostream>
+//#include <conio.h>
 
 //inicjujemy playerError od razu jako blad krytyczny - poniewa¿ jest to sta³a "static bool" to tu jest na to ostatnie miejsce.
 //przy okazji inicjujemy reszte zmiennych.
-Player::Player() : endGame(0), playerMove(0), playerTime(0), playerHp(0), playerRounds(0), hardMode(false),
+Player::Player() : endGame(0), playerLastMove(0), playerTime(0), playerHp(0), playerRounds(0), hardMode(false),
 playerError(true)
 {
 	std::cout << "Blad inicjacji obiektu: nie podano rozmiaru obszaru gry" << std::endl;
 }
 
 //konstruktor: dane wejsciowe ustawiay jako const, zeby nic nam przypadkiem ich nie zmienilo!
-Player::Player(const int sizeX, const int sizeY) : endGame(0), playerMove(0), playerTime(0), playerHp(0),
+Player::Player(const int sizeX, const int sizeY) : endGame(0), playerLastMove(9), playerTime(0), playerHp(0),
 playerRounds(0), hardMode(false), playerError(false)
 
 {
@@ -25,8 +27,8 @@ playerRounds(0), hardMode(false), playerError(false)
 	positionArray[3] = (std::rand() % rndY) + (rndY * 2); //Losujemy pozycje koñcowa
 	positionArray[4] = positionArray[0];                  //ustawiamy gracza na pozycji startowej
 	positionArray[5] = positionArray[1];                  //ustawiamy gracza na pozycji startowej
-	positionArray[4] = sizeX;                             //wpisujemy do tablicy wielkosc swiata
-	positionArray[5] = sizeY;                             //wpisujemy do tablicy wielkosc swiata
+	positionArray[6] = sizeX;                             //wpisujemy do tablicy wielkosc swiata
+	positionArray[7] = sizeY;                             //wpisujemy do tablicy wielkosc swiata
 }
 
 void Player::hpTimeInit()
@@ -38,7 +40,56 @@ void Player::hpTimeInit()
 	else set_playerTime(30);
 }
 
-int Player::get_playerMove() { return playerMove; }
+int Player::move()
+{
+	auto x = get_actX();
+	auto y = get_actY();
+
+	if (get_playerLastMove() == 0) { --x; set_actX(x); }
+	else if (get_playerLastMove() == 1) { ++y; set_actY(y); }
+	else if (get_playerLastMove() == 2) { ++x; set_actX(x); }
+	else if (get_playerLastMove() == 3) { --y; set_actY(y); }
+	else if (get_playerLastMove() == 4) return 3;
+	else if (get_playerLastMove() == 5) return 0;
+	else if (get_playerLastMove() == 6) return 2;
+	else return 9;
+	return 0;
+}
+
+int Player::gameOver()
+{/*
+	system("cls");
+	std::cout << "    HP  " << get_playerHp() << "   zakonczone rundy  " << get_playerRounds()<< "    Pozostalo czasu  "
+		<< get_playerTime() << std::endl << std::endl;
+	if (get_endGame() == 1) std::cout << "\nNiestety twoje zdrowie spadlo do zera... umarles :) " << std::endl;
+	if (get_endGame() == 2) std::cout << "\nUciekasz wyjsciem bezpieczenstwa przed zakonczeniem zadania." << std::endl;
+	if (get_endGame() == 4) std::cout << "\nNiestety koniec czasu - przegrales." << std::endl;
+	if (get_endGame() == 3)
+	{
+		std::cout << "\n\nGRATULACJE udalo ci sie wygrac !!!!" << std::endl;
+		if (hardMode)
+		{
+			ScoreBoard scoreQ;
+			scoreQ.showScoreBoard(get_playerHp() / 2 + get_playerTime());
+		}
+		else
+		std::cout << "\nuzyskales " << get_playerHp() / 2 + get_playerTime() << " punktow" << std::endl;
+	}
+	std::cout << "\nKoniec gry nacisnij Q\nponowna gra nacisnij E" << std::endl;
+	int tst;
+	do
+	{
+		char endChoice = _getch();
+		if (endChoice == 'e' || endChoice == 'E')return 0;
+		if (endChoice == 'q' || endChoice == 'Q')return 1;
+		tst = 1;
+	} while (tst == 1);
+	*/
+	return 1;
+
+}
+
+int Player::get_playerLastMove() { return playerLastMove; }
 int Player::get_startX() { return positionArray[0]; }
 int Player::get_startY() { return positionArray[1]; }
 int Player::get_endX() { return positionArray[2]; }
@@ -53,13 +104,16 @@ int Player::get_playerRounds() { return playerRounds; }
 int Player::get_endGame() { return endGame; }
 bool Player::get_hardMode() { return hardMode; }
 
-void Player::set_playerMove(int x) { playerMove = x; }
+void Player::set_playerLastMove(int x) { playerLastMove = x; }
 void Player::set_actY(int x) { positionArray[5] = x; }
 void Player::set_actX(int x) { positionArray[4] = x; }
 void Player::set_playerTime(int x) { playerTime = x; }
 void Player::set_playerHp(int x) { playerHp = x; }
-void Player::set_playerRounds(int x) { playerRounds = x; }
 void Player::set_endGame(int  x) { endGame = x; }
 void Player::set_hardMode(bool x) { hardMode = x; }
+
+void Player::change_plus_PlayerHp(int x) { playerHp += x; }         //zmieniamy wartosc zdrowia gracza o podany parametr.
+void Player::change_minus_PlayerTime(int x) { playerTime -= x; }    //zmniejszamy wartosc czasu do konca gry o podana wartosc
+void Player::change_addOne_PlayerRounds() { playerRounds++; }       //dodanie jednej rundy gry do licznika
 
 Player::~Player() = default;
