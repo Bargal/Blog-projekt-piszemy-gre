@@ -4,13 +4,13 @@
 #include "Player.h"
 #include "game.h"
 #include <iostream>
-//#include <conio.h>     //dzieki temu mozemy uzyc komendy _getch()
+//#include <conio.h>     //dzieki tej bibliotece mozemy uzyc komendy _getch()
 
 int main()
 {
 	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy, poniewaz bedziemy w grze go wykorzystywac. uzywam static_cast, zeby pozbyc sie irytujacych ostrzezen :)
 
-	// ********* moze nie dzioalac na innych IDE niz Visual Studio!***********
+	// ********* moze nie dzioalac poprawnie na innych IDE niz Visual Studio!***********
 	HWND console = GetConsoleWindow();                  //zmiana wielkosci okna konsoli   copy-paste - wazne, ze dziala, nie wazne jak ;)  (windows.h lib);)
 	RECT r;
 	GetWindowRect(console, &r);

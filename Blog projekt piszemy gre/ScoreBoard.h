@@ -1,17 +1,16 @@
 #pragma once
 
 /*
-* current it is actual game score.
-*
+* Tworzenie tabeli wygranych i zapis do pliku
+*/
 class ScoreBoard
 {
-	int score[10]{}; //table of top 10 game scores
-	bool filestatus; //file read status
+	int score[10]{}; //Tabela najwyzszych 10 wynikow
+	bool filestatus; //status odczytu pliku
 
 public:
 	ScoreBoard();
 	~ScoreBoard();
-	//show score board on screen and add new score on end of score table
+	//pokazywanie i obsluga wyswietlania i dodawania wyniku do listy.
 	void showScoreBoard(int);
 };
-*/

@@ -1,4 +1,3 @@
-/*
 #include "ScoreBoard.h"
 #include <fstream>
 #include <string>
@@ -6,21 +5,22 @@
 
 ScoreBoard::ScoreBoard() : filestatus(true)
 {
-	std::ifstream scoreFile("score.dat");
-	if (!scoreFile.is_open())
+	std::ifstream scoreFile("score.dat");  //otwieranie pliku z wynikami do odczytu
+	if (!scoreFile.is_open())              //sprawdzanie czy plik jest poprawnie otwarty
 	{
 		filestatus = false;
-		for (int i = 0; i < 10; i++)
-			score[i] = 0;
+
+		for (auto& i : score)         //zapis wyliczaj¹cy kolejne komórki trablicy (uniemo¿liwia wyjœcie poza zakres)
+			i = 0;                   //poniewa¿ brak danych z pliku tworzymy tablicê i zapisujemy zerami
 	}
 	else
 	{
-		for (int i = 0; i < 10; i++)
-			scoreFile >> score[i];
+		for (auto& i : score)
+			scoreFile >> i;        //odczytyjemy wyniki z pliku i zapisujemy do tablicy wyników
 
-		scoreFile.close();
+		scoreFile.close();         //zamykanie dostêpu do pliku
 
-		//sorting table of scores
+		//Sortowanie tabeli wynikow (bubble sorting - w wypadku tablicy 10 elementowej optymalne rozwi¹zanie)
 
 		for (int i = 0; i < 10; i++)
 		{
@@ -39,20 +39,20 @@ ScoreBoard::ScoreBoard() : filestatus(true)
 
 ScoreBoard::~ScoreBoard()
 {
-	std::ofstream scoreFile("score.dat");
-	if (!scoreFile.is_open())
+	std::ofstream scoreFile("score.dat"); //otwieranie(lub tworzenie) pliku z wynikami do zapisu
+	if (!scoreFile.is_open())             //sprawdzenie poprawnoœci otwarcia pliku
 	{
 		std::cout << " BLAD ZAPISU PLIKU WYNIKOW !!" << std::endl;
 	}
 	else
 	{
-		for (int i = 0; i < 10; i++)
-			scoreFile << score[i] << std::endl;
+		for (int i : score)             //zapis tabeli wyników do pliku
+			scoreFile << i << std::endl;
 	}
-	scoreFile.close();
+	scoreFile.close();                 //zamykanie dostêpu do pliku
 }
 
-void ScoreBoard::showScoreBoard(const int current)
+void ScoreBoard::showScoreBoard(const int current)  //interfejs i dodawanie wyników do tablicy
 {
 	if (filestatus)
 	{
@@ -65,7 +65,7 @@ void ScoreBoard::showScoreBoard(const int current)
 		}
 		std::cout << "\nTwoj wynik " << current << " zapewnia ci " << position << " miejsce" << std::endl;
 
-		if (position <= 10)	score[9] = current;
+		if (position <= 10)	score[9] = current;  //zapisujemy obecny ynik na ostatnim miejscu, czyli na miejscu wyniku, który "wypada z listy". Sortowanie nast¹pi przy nastêpnym odczycie.
 	}
 	else
 	{
@@ -74,4 +74,3 @@ void ScoreBoard::showScoreBoard(const int current)
 		score[0] = current;
 	}
 }
-*/

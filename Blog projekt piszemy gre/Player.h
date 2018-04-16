@@ -29,8 +29,8 @@ public:
 	Player(int, int);           //konstruktor
 	~Player();                  //destruktor
 
-	void hpTimeInit();  //ustawianie zdrowia gracza i czasu rozgrywki w zaleznosci od trudnosci gry
-	int move();         //Realizacja przemieszczenia na mowy obszar
+	void hpTimeInit();    //ustawianie zdrowia gracza i czasu rozgrywki w zaleznosci od trudnosci gry
+	void move();         //Realizacja przemieszczenia na mowy obszar
 	int gameOver();     //obsluga konca gry.
 
 	// getters

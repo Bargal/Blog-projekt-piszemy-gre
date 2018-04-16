@@ -2,7 +2,7 @@
 #include "ScoreBoard.h"
 #include <cstdlib>
 #include <iostream>
-//#include <conio.h>
+#include <conio.h>
 
 //inicjujemy playerError od razu jako blad krytyczny - poniewa¿ jest to sta³a "static bool" to tu jest na to ostatnie miejsce.
 //przy okazji inicjujemy reszte zmiennych.
@@ -40,7 +40,7 @@ void Player::hpTimeInit()
 	else set_playerTime(30);
 }
 
-int Player::move()
+void Player::move()
 {
 	auto x = get_actX();
 	auto y = get_actY();
@@ -49,17 +49,16 @@ int Player::move()
 	else if (get_playerLastMove() == 1) { ++y; set_actY(y); }
 	else if (get_playerLastMove() == 2) { ++x; set_actX(x); }
 	else if (get_playerLastMove() == 3) { --y; set_actY(y); }
-	else if (get_playerLastMove() == 4) return 3;
-	else if (get_playerLastMove() == 5) return 0;
-	else if (get_playerLastMove() == 6) return 2;
-	else return 9;
-	return 0;
+	else if (get_playerLastMove() == 4) set_endGame(3);
+	else if (get_playerLastMove() == 5) set_endGame(0);
+	else if (get_playerLastMove() == 6) set_endGame(2);
+	else set_endGame(0);
 }
 
 int Player::gameOver()
-{/*
+{
 	system("cls");
-	std::cout << "    HP  " << get_playerHp() << "   zakonczone rundy  " << get_playerRounds()<< "    Pozostalo czasu  "
+	std::cout << "    HP  " << get_playerHp() << "   zakonczone rundy  " << get_playerRounds() << "    Pozostalo czasu  "
 		<< get_playerTime() << std::endl << std::endl;
 	if (get_endGame() == 1) std::cout << "\nNiestety twoje zdrowie spadlo do zera... umarles :) " << std::endl;
 	if (get_endGame() == 2) std::cout << "\nUciekasz wyjsciem bezpieczenstwa przed zakonczeniem zadania." << std::endl;
@@ -67,15 +66,15 @@ int Player::gameOver()
 	if (get_endGame() == 3)
 	{
 		std::cout << "\n\nGRATULACJE udalo ci sie wygrac !!!!" << std::endl;
-		if (hardMode)
+		if (hardMode)   //tabele wynikow wprowadzamy tylko dla wysokiej trudnosci gry (oczywiscie nic nie stoi na przeszkodzie stworzyc osobna tabele dla niskiej trudnosci)
 		{
 			ScoreBoard scoreQ;
 			scoreQ.showScoreBoard(get_playerHp() / 2 + get_playerTime());
 		}
 		else
-		std::cout << "\nuzyskales " << get_playerHp() / 2 + get_playerTime() << " punktow" << std::endl;
+			std::cout << "\nuzyskales " << get_playerHp() / 2 + get_playerTime() << " punktow" << std::endl;
 	}
-	std::cout << "\nKoniec gry nacisnij Q\nponowna gra nacisnij E" << std::endl;
+	std::cout << "\nKoniec gry nacisnij Q\nPonowna gra nacisnij E" << std::endl;
 	int tst;
 	do
 	{
@@ -84,9 +83,7 @@ int Player::gameOver()
 		if (endChoice == 'q' || endChoice == 'Q')return 1;
 		tst = 1;
 	} while (tst == 1);
-	*/
 	return 1;
-
 }
 
 int Player::get_playerLastMove() { return playerLastMove; }

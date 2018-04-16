@@ -21,7 +21,7 @@ int startGame(Player *p_player, World **p_p_worldArr)
 	std::cout << "\nzycze milej zabawy, nacisnij dowolny klawisz aby zaczac." << std::endl;
 	std::cout << "koncowy wynik zalezy od czasu przejscia i pozostalgo zdrowia" << std::endl;
 	std::cout << "\n\nwybierz trudnosc gry: 1 - latwa 2- trudna - uwaga, gra moze byc sporadycznie nie mozliwa do ukonczenia " << std::endl;
-	//ale bedzie zawsze mozliwa jak dodamy eventy i klucze, i wtedy zmienimy opis
+	//TODO: ale bedzie zawsze mozliwa jak dodamy eventy i klucze, i wtedy zmienimy opis
 
 	int tmp;
 	do
@@ -37,8 +37,7 @@ int startGame(Player *p_player, World **p_p_worldArr)
 	lockArea(p_player, p_p_worldArr);                                 // zamykanie wyjsc poza obszar gry
 	if (p_player->get_hardMode()) hardMode(p_player, p_p_worldArr);  //implementacja wysokiej trudnosci w ukladzie obszazru gry
 	p_player->set_endGame(gameLoop(p_player, p_p_worldArr));        //tu zaczyna sie i konczy petla gry
-
-	return p_player->get_endGame();                               //koniec gry, wraz z zwroceniem informacji o przyczynie
+	return p_player->gameOver();                                   //sprawdzenie i obsluga konca gry.
 }
 
 void lockArea(Player* p_player, World** p_p_worldArr)
@@ -71,8 +70,6 @@ void hardMode(Player *p_player, World** p_p_worldArr)
 			p_p_worldArr[i][j].set_exitCell(tmp, false);
 		}
 }
-
-//  **  t¹ czêœæ zostawiamy sobie na kolejny raz. **
 
 int gameLoop(Player * p_player, World ** p_p_worldArr)
 {
@@ -112,8 +109,9 @@ int gameLoop(Player * p_player, World ** p_p_worldArr)
 		p_player->set_playerLastMove(movePlayer(p_player, p_p_worldArr));  //pobieranie i zapis nowego ruchu gracza
 		p_player->move(); //wykonujemy ruch gracza zgodnie z poleceniem z klawiatury.
 
-		//p_player->set_endGame(p_player->move());
-		//if (p_player->get_endGame() == 8) menuQ(p_player, p_p_worldArr); //re-loading the player's movement after the error
+		/*
+		 * TODO: Tu jest miejsce na dopisywanie kolejnych funkcjonalnosci gry
+		 */
 	} while (p_player->get_endGame() == 0);
 
 	return p_player->get_endGame();
@@ -213,13 +211,13 @@ int movePlayer(Player* p_player, World ** p_p_worldArr)
 	do
 	{
 		tst = 0;
-		char keyboardChar = _getch(); //retrieve a character from the keyboard                   * add key support
+		char keyboardChar = _getch(); //Pobieranie znaku z klawiatury
 
 		actualMove = (keyboardChar == 'w' || keyboardChar == 'W') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(0) ? 0
 			: (keyboardChar == 'd' || keyboardChar == 'D') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(1) ? 1
 			: (keyboardChar == 's' || keyboardChar == 'S') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(2) ? 2
 			: (keyboardChar == 'a' || keyboardChar == 'A') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(3) ? 3
-			: (keyboardChar == 'q' || keyboardChar == 'Q') && (p_player->get_actX() == p_player->get_endX() && p_player->get_actY() == p_player->get_endY()) ? 4
+			: (keyboardChar == 'q' || keyboardChar == 'Q') && (p_player->get_actX() == p_player->get_endX() && p_player->get_actY() == p_player->get_endY()) ? 4 //obs³uga pola koñcowego
 			: keyboardChar == 'e' || keyboardChar == 'E' ? 5
 			: keyboardChar == 'r' || keyboardChar == 'R' ? 6
 			: tst = 1;
@@ -227,12 +225,12 @@ int movePlayer(Player* p_player, World ** p_p_worldArr)
 	return actualMove;
 
 	/* Ponizej, dla porownania to samo z wykorzystaniem komendy if - else if - else.
-	 
+
 	int actualMove;
 	do
 	{
-		tst = 0;
-		char keyboardChar = _getch(); //retrieve a character from the keyboard                   * add key support
+		tst = 0;a
+		char keyboardChar = _getch(); //Pobieranie znaku z klawiatury
 
 		if ((keyboardChar == 'w' || keyboardChar == 'W') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(0)) actualMove = 0;
 		else if ((keyboardChar == 'd' || keyboardChar == 'D') && p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(1)) actualMove = 1;
@@ -245,4 +243,4 @@ int movePlayer(Player* p_player, World ** p_p_worldArr)
 	} while (tst == 1);
 	return actualMove;
 	*/
-} 
+}
