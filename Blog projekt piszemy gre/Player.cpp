@@ -66,7 +66,7 @@ int Player::gameOver()
 	if (get_endGame() == 3)
 	{
 		std::cout << "\n\nGRATULACJE udalo ci sie wygrac !!!!" << std::endl;
-		if (hardMode)   //tabele wynikow wprowadzamy tylko dla wysokiej trudnosci gry (oczywiscie nic nie stoi na przeszkodzie stworzyc osobna tabele dla niskiej trudnosci)
+		if (hardMode)   //tabele wynikow wprowadzamy tylko dla wysokiej trudnosci gry
 		{
 			ScoreBoard scoreQ;
 			scoreQ.showScoreBoard(get_playerHp() / 2 + get_playerTime());
@@ -109,8 +109,8 @@ void Player::set_playerHp(int x) { playerHp = x; }
 void Player::set_endGame(int  x) { endGame = x; }
 void Player::set_hardMode(bool x) { hardMode = x; }
 
-void Player::change_plus_PlayerHp(int x) { playerHp += x; }         //zmieniamy wartosc zdrowia gracza o podany parametr.
-void Player::change_minus_PlayerTime(int x) { playerTime -= x; }    //zmniejszamy wartosc czasu do konca gry o podana wartosc
-void Player::change_addOne_PlayerRounds() { playerRounds++; }       //dodanie jednej rundy gry do licznika
+void Player::change_plus_PlayerHp(int x) { playerHp += x; }
+void Player::change_minus_PlayerTime(int x) { playerTime -= x; }
+void Player::change_addOne_PlayerRounds() { playerRounds++; }
 
 Player::~Player() = default;

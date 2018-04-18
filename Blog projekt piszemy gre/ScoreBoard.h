@@ -11,6 +11,5 @@ class ScoreBoard
 public:
 	ScoreBoard();
 	~ScoreBoard();
-	//pokazywanie i obsluga wyswietlania i dodawania wyniku do listy.
-	void showScoreBoard(int);
+	void showScoreBoard(int);//pokazywanie i obsluga wyswietlania i dodawania wyniku do listy.
 };

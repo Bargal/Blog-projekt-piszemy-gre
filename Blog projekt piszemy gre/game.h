@@ -13,3 +13,5 @@ void hardMode(Player *p_player, World **p_p_worldArr);   //procedura dostosowani
 int gameLoop(Player *p_player, World **p_p_worldArr);    //glowna petla gry, zwraca znacznik konca gry: 0 - gramy dalej, 1 - zwyciestwo 2 - przegrana: brak zycia, 3 - przegrana: koniec czasu 4 - przegrana: ucieczka.
 void areaTextInformation(Player *p_player, World **p_p_worldArr);
 int movePlayer(Player* p_player, World ** p_p_worldArr);
+void areaTextGraphics(Player * p_player, World ** p_p_worldArr);   //Grafika tekstowa przedstawiaj¹ca pokoj wraz z stanem otwarcia drzwi.
+void areaTextPlayerInfo(Player * p_player, World ** p_p_worldArr); //opis wplywu pokoju na gracza

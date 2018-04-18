@@ -24,17 +24,10 @@
  worldArr[][];   // glowna tablica na ktorej opiera sie konstrukcja swiata.
  
 
- Klasy wraz z opisem zmiennych:
+ Klasy :
 
- (World.h)  World:     //klasa opisujaca pole gry.
- (Player.h) Player:    //klasa przechowujaca dane o graczu i aktualnej rozgrywce.
+ (World.h)  World:          //klasa opisujaca pole gry.
+ (Player.h) Player:         //klasa przechowujaca dane o graczu i aktualnej rozgrywce.
+ (ScoreBoard.h) ScoreBoard: //klasa odpowiadaj¹ca za zapis, odczyt, wyœwietlanie i sortowanie tabeli wyników gry
 
-
- funkcje:
-
-(game.h):
-startGame();  //funkcja zawiera menu startowe gry i wywolania wszystkich funkcji przygotowawczych i konczacych gre, oraz glowna petle gry
-lockArea();   //funkcja zamykajaca wszystkie wyjscia poza obszar gry
-hardMode();   //procedura dostosowania planszy gry do trybu trudnego (losowe zamykanie drzwi wewnetrznych)
-gameLoop();   //glowna petla gry, zwraca znacznik konca gry: 0 - gramy dalej, 1 - zwyciestwo 2 - przegrana: brak zycia, 3 - przegrana: koniec czasu 4 - przegrana: ucieczka.
 

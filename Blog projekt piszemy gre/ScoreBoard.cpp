@@ -20,7 +20,7 @@ ScoreBoard::ScoreBoard() : filestatus(true)
 
 		scoreFile.close();         //zamykanie dostêpu do pliku
 
-		//Sortowanie tabeli wynikow (bubble sorting - w wypadku tablicy 10 elementowej optymalne rozwi¹zanie)
+		//Sortowanie tabeli wynikow (bubble sorting)
 
 		for (int i = 0; i < 10; i++)
 		{

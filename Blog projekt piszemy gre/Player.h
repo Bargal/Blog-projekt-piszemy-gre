@@ -10,7 +10,7 @@
 
 class Player
 {
-	int  positionArray[8];      //Tablica lokacji gry: 0-startX, 1-startY(wspolrzedne startu gry) , 2-endX, 3-endY (wspolrzedne konca gry) , 4 actX, 5 actY (aktualna pozycja gracza), 6 sizeX, 7 sizeY (wielkosc swiata)
+	int  positionArray[8]{};    //Tablica lokacji gry: 0-startX, 1-startY(wspolrzedne startu gry) , 2-endX, 3-endY (wspolrzedne konca gry) , 4 actX, 5 actY (aktualna pozycja gracza), 6 sizeX, 7 sizeY (wielkosc swiata)
 	int  endGame;              // znacznik koñca gry  0-kontynuacja | 1-brak zdrowia | 2-ucieczka | 3-wygrana! | 4-koniec czasu |8 - z³y klawisz| 9-b³¹d pliku
 	int  playerLastMove;	  //wybor ruchu przez gracza: 0-w | 1-d | 2-s | 3-a | 4-klapa | 5-odpoczynek | 6- koniec | 9 - wartoœæ startowa
 	int  playerTime;	     //deklaracji ilosci czasu pozostalego do konca gry
@@ -18,22 +18,20 @@ class Player
 	int  playerRounds;	   //licznik ilosci rund w grze
 	bool hardMode;		  //oznczenie trudnosci gry - false: latwa, true: trudna
 
-	//settery private:
 	void set_playerTime(int);   //ustawianie czasu rozgrywki
 
 public:
 
-	const bool playerError;     //tu przechowamy informacjê o b³êdzie inicjalizacji obiektu.
+	const bool playerError;     //tu przechowamy informacje o bledzie inicjalizacji obiektu.
 
 	Player();                   //domyslny konstruktor z obsluga bledu wywolania obiektu
-	Player(int, int);           //konstruktor
-	~Player();                  //destruktor
+	Player(int, int);
+	~Player();
 
 	void hpTimeInit();    //ustawianie zdrowia gracza i czasu rozgrywki w zaleznosci od trudnosci gry
 	void move();         //Realizacja przemieszczenia na mowy obszar
 	int gameOver();     //obsluga konca gry.
 
-	// getters
 	int get_startX();   //pobieranie wspolrzednej X pola startowego   [0]
 	int get_startY();   //pobieranie wspolrzednej y pola startowego   [1]
 	int get_endX();     //pobieranie wspolrzednej X pola koncowego    [2]
@@ -50,7 +48,6 @@ public:
 	int  get_playerRounds();
 	bool get_hardMode();
 
-	//setters
 	void set_playerLastMove(int);
 	void set_endGame(int);
 	void set_actY(int);

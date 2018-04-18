@@ -1,52 +1,51 @@
 #include <ctime>
-#include <windows.h> //****** - tylko dla bloku zmiany wielkosci konsoli (copy-paste).
+#include <windows.h>
 #include "World.h"
 #include "Player.h"
 #include "game.h"
-#include <iostream>
-//#include <conio.h>     //dzieki tej bibliotece mozemy uzyc komendy _getch()
 
 int main()
 {
-	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy, poniewaz bedziemy w grze go wykorzystywac. uzywam static_cast, zeby pozbyc sie irytujacych ostrzezen :)
+	srand(static_cast<unsigned int>(time(nullptr))); //inicjujemy generator pseudolosowy - static_cast dla zlikwidowania warningu (generalnie zbêdny)
 
-	// ********* moze nie dzioalac poprawnie na innych IDE niz Visual Studio!***********
+	//modu³ opcjonalny
 	HWND console = GetConsoleWindow();                  //zmiana wielkosci okna konsoli   copy-paste - wazne, ze dziala, nie wazne jak ;)  (windows.h lib);)
 	RECT r;
 	GetWindowRect(console, &r);
 	MoveWindow(console, r.left, r.top, 900, 600, TRUE); // tu ustawiamy wysokosc i szerokosc okna konsoli ... koniec copy-paste.
 
-	int endGame;  //jezeli zmienna bedzie rozna od 0 na koncu pentli nastapi zamkniecie gry i wyjscie do systemu.
+	int endGame;  // 0 - kontynuacja gry
 
-	do //pomocnicza petla gry (jednoczesnie bedaca cyklem zycia obiektow)
+	do //pomocnicza petla gry (jednoczesnie cykl zycia obiektow)
 	{
-		/*
-		 *na razie ustalamy stala wielkosc swiata dla ulatwienia.
-		 *ale to tutaj jest miejsce na menu z wyborem wielkosci swiata
-		 */
+		//TODO: tu mo¿na umiescic zmiane wielkosci obszaru gry.
 
-		int worldSizeX = 10; //wielkosc swiata - wspolrzedna X
-		int worldSizeY = 10; //wielkosc swiata - wspolrzedna Y
+		const int worldSizeX = 10; 
+		const int worldSizeY = 10; 
 
-		auto p_p_worldArr = new World*[worldSizeX];   //tworzymy wskaznik do 1 wymiarowej tablicy i od razu tablice z wskaznikami do tablic zawieraj¹cych obiekty klasy World.
-		for (int i = 0; i < worldSizeX; i++)           //petla dzieki ktorej stworzymy:
-			p_p_worldArr[i] = new World[worldSizeY];  //w kazdej komorce tablicy tworzymy wskaznik do nowej tablicy i od razu nowa tablice obiektow klasy World.
+							 //G³ówna tablica œwiata gry
+		auto p_p_worldArr = new World*[worldSizeX];
+		for (int i = 0; i < worldSizeX; i++)
+			p_p_worldArr[i] = new World[worldSizeY];
 
-		auto p_player = new Player(worldSizeX, worldSizeY);              //Inicjujemy obiekt przechowujacy dane gracza i od razu przekazujemy do niego rozmiar swiata
-		if (p_player->playerError)  return 1;                           //jesli nie udalo sie poprawnie zainicjowac obiektu wychodzimy z gry, zwracajac kod bledu.
-																	   //pamietajmy - p_player to wskaznik do obiektu, wiec metody i zmienne wywolujemy nie przez '.' tylko '->'
+		auto p_player = new Player(worldSizeX, worldSizeY);  //Inicjujemy obiekt przechowujacy dane gracza i od razu przekazujemy do niego rozmiar swiata
+		if (p_player->playerError)  return 1;                //jesli nie udalo sie poprawnie zainicjowac obiektu wychodzimy z gry, zwracajac kod bledu.
+															 //pamietajmy - p_player to wskaznik do obiektu, wiec metody i zmienne wywolujemy nie przez '.' tylko '->'
 
-		endGame = startGame(p_player, p_p_worldArr);                  //tu bêdzie toczyæ siê ca³a nasza gra, przechodzimy do plikow game.h i game.cpp   ** i jak wskazuje logika - koniec gry jest spowodowany jej rozpoczêciem ;) *
+		endGame = startGame(p_player, p_p_worldArr);         //tu bêdzie toczyæ siê ca³a gra
 		//prototyp funkcji w pliku game.h
 
-		 //kasujemy obiekt przechowujacy dane gracza
+		//czyszczenie pamieci: gdyby gra nie miala opcji ponownej rozgrywki mozna by bylo pominac
+		//bo po skonczeniu programu i tak pamiec jest uwalniana, ale gracz moze wybrac ponowna gre.
+
+		//kasujemy obiekt przechowujacy dane gracza
 		delete p_player;
 
 		//kasujemy wszystkie dane swiata, robimy to odwrotnie ni¿ podczas inicjalizacji:
 		for (int i = 0; i < worldSizeX; i++)
 			delete[] p_p_worldArr[i];  //najpierw wskazniki do tablic
-		delete[] p_p_worldArr;        //a nastêpnie wskaznik do tablicy wskaznikow
-	} while (endGame == 0);  //warunek koncowy pomocniczej petli gry
+		delete[] p_p_worldArr;         //a nastêpnie wskaznik do tablicy wskaznikow
+	} while (endGame == 0);            //warunek koncowy pomocniczej petli gry
 
 	return 0;
 }

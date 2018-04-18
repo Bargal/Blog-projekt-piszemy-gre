@@ -3,11 +3,11 @@
 #include "game.h"
 #include <iostream>
 #include <string>
-#include <conio.h>     //dzieki temu mozemy uzyc komendy _getch()
+#include <conio.h>  //tylko dla _getch()
 
 int startGame(Player *p_player, World **p_p_worldArr)
 {
-	system("cls");                                            //tu moga sie pojawic pierwsze klopoty na niektorych IDE.
+	system("cls");
 	std::cout << "Witam w qube txt" << std::endl;
 	std::cout << "\nzaraz wejdziesz do losowego boxu " << std::endl;
 	std::cout << "twoim zadaniem bedzie wydostanie sie na zewnatrz" << std::endl;
@@ -33,7 +33,7 @@ int startGame(Player *p_player, World **p_p_worldArr)
 		else tmp = 1;                                          // a jesli podano inna wartosc niz 1 albo 2...
 	} while (tmp == 1);                                       //wracamy na poczatek petli i czekamy na wlasciwa reakcje gracza.
 
-	p_player->hpTimeInit();                                            //Inicjalizacja czasu i zdrowia gracza zgodnie z trudnoscia gry (zapisana juz w obiekcie p_player)
+	p_player->hpTimeInit();                                            //Inicjalizacja czasu i zdrowia gracza zgodnie z trudnoscia gry
 	lockArea(p_player, p_p_worldArr);                                 // zamykanie wyjsc poza obszar gry
 	if (p_player->get_hardMode()) hardMode(p_player, p_p_worldArr);  //implementacja wysokiej trudnosci w ukladzie obszazru gry
 	p_player->set_endGame(gameLoop(p_player, p_p_worldArr));        //tu zaczyna sie i konczy petla gry
@@ -60,7 +60,7 @@ void lockArea(Player* p_player, World** p_p_worldArr)
 }
 
 void hardMode(Player *p_player, World** p_p_worldArr)
-//zamykamy jedno losowe przejscie w kazdym pokoju, z wylaczeniem pokojow zewnetrznych  (po zaimplementowaniu kluczy, mozliwe, ze zmienimy na zmiany bez wykluczenia pokoi zewnetrznych)
+//zamykamy jedno losowe przejscie w kazdym pokoju, z wylaczeniem pokojow zewnetrznych  (po zaimplementowaniu kluczy zmienimy na: bez wykluczenia pokoi zewnetrznych)
 //taki sposob losowania i ustawiania parametrow, pozwala na to, ze sporo drzwi bedzie nie do przejscia tylko w jedna strone, co dodatkowo urozmaici zabawe.
 {
 	for (int i = 1; i < (p_player->get_sizeX() - 1); i++)
@@ -73,10 +73,6 @@ void hardMode(Player *p_player, World** p_p_worldArr)
 
 int gameLoop(Player * p_player, World ** p_p_worldArr)
 {
-	//komentarz roboczy "ku pamieci"
-	// p_player->set_endGame(0);     znacznik koñca gry  0-kontynuacja | 1-brak zdrowia | 2-ucieczka | 3-wygrana! | 4-koniec czasu |8 - z³y klawisz| 9-b³¹d pliku
-	// p_player->set_playerLastMove(9);  wybor ruchu przez gracza: 0-w | 1-d | 2-s | 3-a | 4-klapa | 5-odpoczynek | 6- koniec | 9 - wartoœæ startowa
-
 	// Informujemy gracza o dokladnym celu misji
 	system("cls");
 
@@ -105,6 +101,8 @@ int gameLoop(Player * p_player, World ** p_p_worldArr)
 			<< "    Pozostalo czasu  " << p_player->get_playerTime() << std::endl << std::endl;
 
 		areaTextInformation(p_player, p_p_worldArr); //opisujemy i pokazujemy aktualny obszar gry
+		areaTextGraphics(p_player, p_p_worldArr);    //Grafika tekstowa przedstawiaj¹ca pokoj wraz z stanem otwarcia drzwi.
+		areaTextPlayerInfo(p_player, p_p_worldArr); //opis wplywu pokoju na gracza
 		p_player->change_addOne_PlayerRounds();      //dodajemy do licznika jedna runda gry
 		p_player->set_playerLastMove(movePlayer(p_player, p_p_worldArr));  //pobieranie i zapis nowego ruchu gracza
 		p_player->move(); //wykonujemy ruch gracza zgodnie z poleceniem z klawiatury.
@@ -150,9 +148,9 @@ void areaTextInformation(Player * p_player, World ** p_p_worldArr) //mniej komen
 	if (p_player->get_actX() == p_player->get_endX() && p_player->get_actY() == p_player->get_endY())
 		std::cout << "\n w podlodze widzisz nieznana klape, czyzby upragnione wyjscie??" << std::endl;
 	std::cout << std::endl;
-
-	//Grafika tekstowa przedstawiaj¹ca pokoj wraz z stanem otwarcia drzwi. Zwolennicy funkcji mieszcacych sie na jednym ekranie powinni przeniesc ponizszy kawalek do osobnej funkcji
-	//wywolywanej z tego miejsca. Ma to tez sens, jesli planujemy przeniesienie gry z konsoli do aplikacji okienkowej.
+}
+void areaTextGraphics(Player * p_player, World ** p_p_worldArr)  //Grafika tekstowa przedstawiaj¹ca pokoj wraz z stanem otwarcia drzwi.
+{
 	if (p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_exitCell(0))
 		std::cout << "  _|____*   *____|_  " << std::endl;
 	else
@@ -176,8 +174,10 @@ void areaTextInformation(Player * p_player, World ** p_p_worldArr) //mniej komen
 	else
 		std::cout << "  _|____ ___ ____|_  " << std::endl;
 	std::cout << "   |    *   *    |   " << std::endl;
+}
 
-	//opis wplywu pokoju na gracza
+void areaTextPlayerInfo(Player * p_player, World ** p_p_worldArr)//opis wplywu pokoju na gracza
+{
 	std::cout << "\nJednoczesnie czujesz ze w pokoju panuje ";
 	if (p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_hpCell() == 0) std::cout << "neutralna atmosfera " << std::endl;
 	if (p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_hpCell() > 0)
@@ -201,13 +201,13 @@ int movePlayer(Player* p_player, World ** p_p_worldArr)
 	if (p_player->get_actX() == p_player->get_endX() && p_player->get_actY() == p_player->get_endY())
 		std::cout << "\n\a\a****** nacisnij Q zeby skorzystac z klapy w podlodze *****" << std::endl;
 
+	p_player->set_playerLastMove(9);
+	int actualMove;
 	int tst;
-	p_player->set_playerLastMove(9); // player selection 0-w | 1-d | 2-s | 3-a | 4-a | 5-rest | 6- exit
 
 	//pobranie reakcji gracza z klawiatury, sprawdzenie i zwrotu parametru decyzji gracza.
 	// w celach pogladowych dwie wersje: pierwsza z wykorzystaniem operatora warunkowego ?:
 
-	int actualMove;
 	do
 	{
 		tst = 0;
@@ -224,9 +224,8 @@ int movePlayer(Player* p_player, World ** p_p_worldArr)
 	} while (tst == 1);
 	return actualMove;
 
-	/* Ponizej, dla porownania to samo z wykorzystaniem komendy if - else if - else.
+	/* Ponizej, dla porownania to samo z wykorzystaniem komendy if - else if
 
-	int actualMove;
 	do
 	{
 		tst = 0;a
