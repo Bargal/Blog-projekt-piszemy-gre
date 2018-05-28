@@ -4,27 +4,25 @@
  * Klasa przechowujaca i manipulijaca danymi gry zwiazanymi z polozeniem obiektow w swiecie gry oraz danych gracza
  * takich jak zdrowie czy pozostaly czas gry.
  *
- * endGame:   znacznik konca gry: 0 - gramy dalej, 1 - zwyciestwo 2 - przegrana: brak zycia, 3 - przegrana: koniec czasu 4 - przegrana: ucieczka.
+ * endGame:             znacznik koñca gry  0-kontynuacja | 1-brak zdrowia | 2-ucieczka | 3-wygrana! | 4-koniec czasu |8 - z³y klawisz| 9-b³¹d pliku
  * Tablica lokacji gry: 0-startX, 1-startY(wspolrzedne startu gry) , 2-endX, 3-endY (wspolrzedne konca gry) , 4 actX, 5 actY (aktualna pozycja gracza)
+ * playerLastMove;	    wybor ruchu przez gracza: 0-w | 1-d | 2-s | 3-a | 4-klapa | 5-odpoczynek | 6- koniec | 9 - wartoœæ startowa
  */
 
 class Player
 {
-	int  positionArray[8]{};    //Tablica lokacji gry: 0-startX, 1-startY(wspolrzedne startu gry) , 2-endX, 3-endY (wspolrzedne konca gry) , 4 actX, 5 actY (aktualna pozycja gracza), 6 sizeX, 7 sizeY (wielkosc swiata)
-	int  endGame;              // znacznik koñca gry  0-kontynuacja | 1-brak zdrowia | 2-ucieczka | 3-wygrana! | 4-koniec czasu |8 - z³y klawisz| 9-b³¹d pliku
-	int  playerLastMove;	  //wybor ruchu przez gracza: 0-w | 1-d | 2-s | 3-a | 4-klapa | 5-odpoczynek | 6- koniec | 9 - wartoœæ startowa
-	int  playerTime;	     //deklaracji ilosci czasu pozostalego do konca gry
+	int  positionArray[8]{};    // 0-startX, 1-startY(wspolrzedne startu gry) , 2-endX, 3-endY (wspolrzedne konca gry) , 4 actX, 5 actY (aktualna pozycja gracza), 6 sizeX, 7 sizeY (wielkosc swiata)
+	int  endGame;              // 0-kontynuacja | 1-brak zdrowia | 2-ucieczka | 3-wygrana! | 4-koniec czasu |8 - z³y klawisz| 9-b³¹d pliku
+	int  playerLastMove;	  // 0-w | 1-d | 2-s | 3-a | 4-klapa | 5-odpoczynek | 6- koniec | 9 - wartoœæ startowa
+	int  playerTime;	     //czas do konca gry
 	int  playerHp;		    //zdrowie gracza
-	int  playerRounds;	   //licznik ilosci rund w grze
-	bool hardMode;		  //oznczenie trudnosci gry - false: latwa, true: trudna
+	int  playerRounds;	   //ilosc rund w grze
+	bool hardMode;		  //trudnosc gry - false: latwa, true: trudna
 
-	void set_playerTime(int);   //ustawianie czasu rozgrywki
+	void set_playerTime(int);   //czas rozgrywki
 
 public:
 
-	const bool playerError;     //tu przechowamy informacje o bledzie inicjalizacji obiektu.
-
-	Player();                   //domyslny konstruktor z obsluga bledu wywolania obiektu
 	Player(int, int);
 	~Player();
 
@@ -41,7 +39,7 @@ public:
 	int get_sizeX();    //pobieranie parametru x wielkosci swiata     [6]
 	int get_sizeY();    //pobieranie parametru y wielkosci swiata     [7]
 
-	int  get_playerLastMove();
+	int get_playerLastMove();
 	int  get_endGame();
 	int  get_playerTime();
 	int  get_playerHp();

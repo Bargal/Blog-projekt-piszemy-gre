@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World() : beInside(0), eventType(0), hpCell(0), timeCell(0)
+World::World() : beInside(0), exitCell{ true, true, true, true }, eventType(0), hpCell(0), timeCell(0)
 {
 	hpCell = (rand() % 5) - 2;        //losowe wyznaczanie wp³ywu lokacji na zdrowie gracza
 	timeCell = (rand() % 4) + hpCell; // Losowe wyznaczanie czasu rundy na lokacji (zale¿noœæ z wp³ywem na zdrowie)
