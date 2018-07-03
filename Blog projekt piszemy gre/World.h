@@ -29,5 +29,5 @@ public:
 	void set_beInside(int);
 	void set_exitCell(int, bool);                                   //ustawiamy stan logiczny (true/false) otwarcia drzwi
 	void set_eventType(int);                                        //
-	void set_infoCell(int data2 = 0, std::string data1 = "Pokoj");  //ustawiamy domyslne parametry funkcji.
+	void set_infoCell(int data2 = 0, std::string infoCell = "Pokoj");  //ustawiamy domyslne parametry funkcji.
 };

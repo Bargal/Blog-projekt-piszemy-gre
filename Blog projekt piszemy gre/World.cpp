@@ -15,13 +15,13 @@ int World::get_beInside() { return beInside; }
 int World::get_eventType() { return eventType; }
 bool World::get_exitCell(int arr1) { return exitCell[arr1]; }
 
-void World::set_beInside(int data1) { beInside = data1; } //mo¿na te¿ napisaæ: ...set_beInside(int beInside) { this -> beInside = beInside; }
+void World::set_beInside(int beInside) { this -> beInside = beInside; } 
 void World::set_exitCell(int arr1, bool data1) { exitCell[arr1] = data1; }
-void World::set_eventType(int data1) { eventType = data1; }
+void World::set_eventType(int eventType) { this -> eventType = eventType; }
 
-void World::set_infoCell(int data2, std::string data1)  //ustawiamy wartoœci domyœlne zmiennych
+void World::set_infoCell(int data2, std::string infoCell)  //ustawiamy wartoœci domyœlne zmiennych
 {
-	infoCell = data1;                       //pocz¹tek opisu lokacji
+	this -> infoCell = infoCell;                       //pocz¹tek opisu lokacji
 	infoCell += ' ';                        //wstawienie spacji po pierwszym czlonie opisu
 	if (data2 > 0)                          //jeœli numer jest wiêkszy od zera
 	{

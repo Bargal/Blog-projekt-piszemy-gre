@@ -10,19 +10,20 @@
 int startGame(Player *p_player, World **p_p_worldArr)
 {
 	system("cls");
-	std::cout << "Witam w qube txt" << std::endl;
-	std::cout << "\nzaraz wejdziesz do losowego boxu " << std::endl;
-	std::cout << "twoim zadaniem bedzie wydostanie sie na zewnatrz" << std::endl;
-	std::cout << "w tym celu uzyj klawiszy WSAD :" << std::endl;
-	std::cout << "\n W - polnoc\n E - poludnie\n A - zachod\n D - wschod" << std::endl;
-	std::cout << "lub klawiszami strzalek" << std::endl;
-	std::cout << "spokojnie - nie musisz tego zapamietac - bedzie to podawane podczas gry :)" << std::endl;
-	std::cout << "\nNa poczatek masz 10 punktow zycia.\nCzesc pokojow zadaje obrazena a odpoczynek w czesci pokojow leczy rany" << std::endl;
-	std::cout << "odpoczywasz uzywajac klawisza Q" << std::endl;
-	std::cout << "masz okreslona ilosc jednostek czasu a kazdy pokoj zabiera pewna ilosc czasu na ture" << std::endl;
-	std::cout << "\nzycze milej zabawy, nacisnij dowolny klawisz aby zaczac." << std::endl;
-	std::cout << "koncowy wynik zalezy od czasu przejscia i pozostalgo zdrowia" << std::endl;
-	std::cout << "\n\nwybierz trudnosc gry: 1 - latwa 2- trudna - uwaga, gra moze byc sporadycznie nie mozliwa do ukonczenia " << std::endl;
+	std::cout
+		<< "Witam w qube txt" << std::endl
+		<< "\nzaraz wejdziesz do losowego boxu " << std::endl
+		<< "twoim zadaniem bedzie wydostanie sie na zewnatrz" << std::endl
+		<< "w tym celu uzyj klawiszy WSAD :" << std::endl
+		<< "\n W - polnoc\n E - poludnie\n A - zachod\n D - wschod" << std::endl
+		<< "lub klawiszami strzalek" << std::endl
+		<< "spokojnie - nie musisz tego zapamietac - bedzie to podawane podczas gry :)" << std::endl
+		<< "\nNa poczatek masz 10 punktow zycia.\nCzesc pokojow zadaje obrazena a odpoczynek w czesci pokojow leczy rany" << std::endl
+		<< "odpoczywasz uzywajac klawisza Q" << std::endl
+		<< "masz okreslona ilosc jednostek czasu a kazdy pokoj zabiera pewna ilosc czasu na ture" << std::endl
+		<< "\nzycze milej zabawy, nacisnij dowolny klawisz aby zaczac." << std::endl
+		<< "koncowy wynik zalezy od czasu przejscia i pozostalgo zdrowia" << std::endl
+		<< "\n\nwybierz trudnosc gry: 1 - latwa 2- trudna - uwaga, gra moze byc sporadycznie nie mozliwa do ukonczenia " << std::endl;
 	//TODO: ale bedzie zawsze mozliwa jak dodamy eventy i klucze, i wtedy zmienimy opis
 
 	int tmp;
@@ -80,13 +81,14 @@ int gameLoop(Player * p_player, World **p_p_worldArr)
 	// Informujemy gracza o dokladnym celu misji
 	system("cls");
 
-	std::cout << "\n\n\n\nZaraz wejdziesz do gry!!!" << std::endl;
-	std::cout << "\nzaczniesz w miejscu oznaczonym jako: " << p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_infoCell() << std::endl;
-	std::cout << "wyjscie znajduje sie w pokoju oznaczonym jako: " << p_p_worldArr[p_player->get_endX()][p_player->get_endY()].get_infoCell() << std::endl;
-	std::cout << "\nzapamietaj to, bo od teraz podawany bedzie tylko numer pokoju w ktorym aktualnie jestes!" << std::endl;
-	std::cout << "\n\nWspinasz sie po drabince do pomieszczenia od ktorego zaczniesz gre," << std::endl;
-	std::cout << "celem jest dotrzec jak najszybciej do pomieszczenia z taka sama klapa w podlodze i wyjscie" << std::endl;
-	std::cout << "\n\nNacisnij dowolny klawisz" << std::endl;
+	std::cout
+		<< "\n\n\n\nZaraz wejdziesz do gry!!!" << std::endl
+		<< "\nzaczniesz w miejscu oznaczonym jako: " << p_p_worldArr[p_player->get_actX()][p_player->get_actY()].get_infoCell() << std::endl
+		<< "wyjscie znajduje sie w pokoju oznaczonym jako: " << p_p_worldArr[p_player->get_endX()][p_player->get_endY()].get_infoCell() << std::endl
+		<< "\nzapamietaj to, bo od teraz podawany bedzie tylko numer pokoju w ktorym aktualnie jestes!" << std::endl
+		<< "\n\nWspinasz sie po drabince do pomieszczenia od ktorego zaczniesz gre," << std::endl
+		<< "celem jest dotrzec jak najszybciej do pomieszczenia z taka sama klapa w podlodze i wyjscie" << std::endl
+		<< "\n\nNacisnij dowolny klawisz" << std::endl;
 	while (_kbhit()) //czyszczenie buforu klawiatury
 	{
 		_getche();
@@ -104,7 +106,8 @@ int gameLoop(Player * p_player, World **p_p_worldArr)
 		if (p_player->get_playerTime() < 0) return 4;                                                              //sprawdzanie czasu, jesli ponizej zera to koniec gry
 
 																		 // wypisujemy gorny pasek statusu gry
-		std::cout << "    HP  " << p_player->get_playerHp()
+		std::cout 
+			<< "    HP  " << p_player->get_playerHp()
 			<< "   zakonczone rundy  " << p_player->get_playerRounds()
 			<< "    Pozostalo czasu  " << p_player->get_playerTime() << std::endl << std::endl;
 
